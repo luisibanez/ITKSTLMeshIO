@@ -29,6 +29,7 @@ STLMeshIO
 ::STLMeshIO()
 {
   this->AddSupportedWriteExtension(".stl");
+  this->AddSupportedWriteExtension(".STL");
 }
 
 bool
@@ -40,7 +41,9 @@ STLMeshIO
     return false;
     }
 
-  if ( itksys::SystemTools::GetFilenameLastExtension(fileName) != ".stl" )
+  const std::string extension = itksys::SystemTools::GetFilenameLastExtension(fileName);
+
+  if ( extension != ".stl" && extension != ".STL" )
     {
     return false;
     }
@@ -215,35 +218,66 @@ void
 STLMeshIO
 ::Write()
 {
+  // All has been done in the WriteCells() method.
+
+  // Here we only need to close the output stream.
+  m_OutputStream.close();
 }
 
 void
 STLMeshIO
 ::WritePoints( void * buffer )
 {
-  const IdentifierType numberOfPoints = this->GetNumberOfPoints();
 
-  // Revisit this choice. Although.. STL will only manage 3D.
-  // This probably should throw and exception if the input Mesh is not in 3D space.
-  const unsigned int PointDimension = 3;
+  const IOComponentType pointValueType = this->GetPointComponentType();
 
-  typedef float PointValueType;   // FIXME Revisit this choice. It should be read from the MetaData.
-
-  const PointValueType * pointCoordinates = reinterpret_cast< const PointValueType * >( buffer );
-
-  this->m_Points.clear();
-
-  this->m_Points.resize(numberOfPoints);
-
-  for( IdentifierType pi = 0; pi < numberOfPoints; ++pi )
+  switch( pointValueType )
     {
-    for( unsigned int i = 0; i < PointDimension; ++i )
-      {
-      m_Points[pi][i] = *pointCoordinates++;
-      }
+    case UCHAR:
+      this->WritePointsTyped( reinterpret_cast< unsigned char * >( buffer ) );
+      break;
+    case CHAR:
+      this->WritePointsTyped( reinterpret_cast< const char * >( buffer ) );
+      break;
+    case USHORT:
+      this->WritePointsTyped( reinterpret_cast< const unsigned short * >( buffer ) );
+      break;
+    case SHORT:
+      this->WritePointsTyped( reinterpret_cast< const short * >( buffer ) );
+      break;
+    case UINT:
+      this->WritePointsTyped( reinterpret_cast< const unsigned int * >( buffer ) );
+      break;
+    case INT:
+      this->WritePointsTyped( reinterpret_cast< const int * >( buffer ) );
+      break;
+    case ULONG:
+      this->WritePointsTyped( reinterpret_cast< const unsigned long * >( buffer ) );
+      break;
+    case LONG:
+      this->WritePointsTyped( reinterpret_cast< const long * >( buffer ) );
+      break;
+    case ULONGLONG:
+      this->WritePointsTyped( reinterpret_cast< const unsigned long long * >( buffer ) );
+      break;
+    case LONGLONG:
+      this->WritePointsTyped( reinterpret_cast< const long long * >( buffer ) );
+      break;
+    case FLOAT:
+      this->WritePointsTyped( reinterpret_cast< const float * >( buffer ) );
+      break;
+    case DOUBLE:
+      this->WritePointsTyped( reinterpret_cast< const double * >( buffer ) );
+      break;
+    case LDOUBLE:
+      this->WritePointsTyped( reinterpret_cast< const long double * >( buffer ) );
+      break;
+    default:
+      itkExceptionMacro(<< "Unknonwn point component type");
     }
 
 }
+
 
 void
 STLMeshIO

@@ -55,7 +55,9 @@ bool
 STLMeshIO
 ::CanWriteFile(const char *fileName)
 {
-  if ( itksys::SystemTools::GetFilenameLastExtension(fileName) != ".stl" )
+  const std::string extension = itksys::SystemTools::GetFilenameLastExtension(fileName);
+
+  if ( extension != ".stl" && extension != ".STL" )
     {
     return false;
     }

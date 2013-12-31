@@ -18,6 +18,7 @@
 
 #include "itkQuadEdgeMesh.h"
 #include "itkSTLMeshIOFactory.h"
+#include "itkSTLMeshIO.h"
 #include "itkMeshFileReader.h"
 #include "itkMeshFileWriter.h"
 
@@ -71,6 +72,13 @@ int itkSTLMeshIOTest(int argc, char * argv[])
     std::cerr << excp << std::endl;
     result = EXIT_FAILURE;
     }
+
+  //
+  //  Exercising additional methods
+  //
+  itk::STLMeshIO::Pointer meshIO = itk::STLMeshIO::New();
+
+  meshIO->Print( std::cout );
 
   return result;
 }

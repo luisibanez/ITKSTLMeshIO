@@ -62,10 +62,17 @@ public:
   /** Set the spacing and dimension information for the set filename. */
   virtual void ReadMeshInformation();
 
-  /** Reads the data from disk into the memory buffer provided. */
+  /** Stores the point data into the memory buffer provided. */
   virtual void ReadPoints(void *buffer);
 
+  /** Stores the cell data into the memory buffer provided. */
   virtual void ReadCells(void *buffer);
+
+  /** Indicates whether ReadPoints() should be called. */
+  virtual bool GetUpdatePoints() const;
+
+  /** Indicates whether ReadCells() should be called. */
+  virtual bool GetUpdateCells() const;
 
   /** STL files do not carry information in points or cells.
    * Therefore the following two methods are implemented as null
@@ -118,7 +125,6 @@ public:
    * operations. */
   virtual void WritePointData( void * itkNotUsed(buffer) ) {};
   virtual void WriteCellData( void * itkNotUsed(buffer) ) {};
-
 
 protected:
   STLMeshIO();
@@ -206,7 +212,7 @@ private:
   static double PointHash( const PointType & point )
   {
     double hash = 0;
-    double factor = 1e10;
+    double factor = 1e5; // one third of the range of the double mantissa
     hash  = static_cast<double>( point[0] );
     hash *= factor;
     hash += static_cast<double>( point[1] );
@@ -235,7 +241,14 @@ private:
   IdentifierType        m_LatestPointId;
 
   // Triplet to hold the Ids of points in a triagle as they are being read
-  typedef IdentifierType  TripletType[3];
+  class TripletType
+  {
+    public:
+      IdentifierType  p0;
+      IdentifierType  p1;
+      IdentifierType  p2;
+  };
+
   TripletType             m_TrianglePointIds;
   unsigned int            m_PointInTriangleCounter;
 

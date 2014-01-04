@@ -160,6 +160,8 @@ STLMeshIO
 
   this->m_InputLineNumber = 2;
 
+  this->m_LatestPointId = NumericTraits< IdentifierType >::Zero;
+
   while( !this->CheckStringFromAscii("endsolid") )
     {
     //
@@ -186,7 +188,7 @@ STLMeshIO
     this->m_CellsVector.push_back( this->m_TrianglePointIds );
     }
 
-  this->SetNumberOfPoints( this->m_PointsVector.size() );
+  this->SetNumberOfPoints( this->m_PointsMap.size() );
 
   //
   // The factor 5 accounts for five integers
@@ -251,6 +253,8 @@ STLMeshIO
   char header[80];
   this->m_InputStream.read(header,80);
 
+  this->m_LatestPointId = NumericTraits< IdentifierType >::Zero;
+
   //
   // UINT32 -- Number of Triangles
   //
@@ -288,9 +292,7 @@ STLMeshIO
     this->m_CellsVector.push_back( this->m_TrianglePointIds );
     }
 
-std::cout << "Number of Unique Points = " << this->m_PointsVector.size() << std::endl;
-
-  this->SetNumberOfPoints( this->m_PointsVector.size() );
+  this->SetNumberOfPoints( this->m_PointsMap.size() );
 
   //
   // The factor 5 accounts for five integers
@@ -313,18 +315,15 @@ STLMeshIO
   // The Point and Cell data were read in the ReadMeshInformation() method.
   // Here, we can focus on packaging the point data into the return buffer.
   //
-  PointsVectorType::const_iterator pointItr = this->m_PointsVector.begin();
-  PointsVectorType::const_iterator pointEnd = this->m_PointsVector.end();
+  PointsMapType::const_iterator pointItr = this->m_PointsMap.begin();
+  PointsMapType::const_iterator pointEnd = this->m_PointsMap.end();
 
   float * pointCoordinates = reinterpret_cast< float * >( buffer );
 
   while( pointItr != pointEnd )
     {
-    // get the iterator to the Set, pointing to a unique Point.
-    PointSetIterator uniquePointItr = *pointItr;
-
     // Get the reference to that PointType object.
-    const PointType & point = *uniquePointItr;
+    const PointType & point = pointItr->first;
 
     //
     // Store the Point coordintes in the buffer.
@@ -365,8 +364,6 @@ STLMeshIO
     *cellPointIds++ = cellItr->p0;
     *cellPointIds++ = cellItr->p1;
     *cellPointIds++ = cellItr->p2;
-
-    std::cout << "points " << cellItr->p0 << " " << cellItr->p1 << " " << cellItr->p2 << std::endl;
 
     ++cellItr;
     }
@@ -705,28 +702,37 @@ STLMeshIO
 ::InsertPointIntoSet( const PointType & point )
 {
 
-  PointSetResultType result = this->m_PointsSet.insert( point );
+  PointsMapType::const_iterator pointMapItr = this->m_PointsMap.find( point );
 
-  if( result.second )
+  IdentifierType pointId = pointMapItr->second;
+
+  if( pointMapItr == this->m_PointsMap.end() )
     {
-    this->m_PointsVector.push_back( result.first );
+    this->m_PointsMap[ point ] = this->m_LatestPointId;
+    pointId = this->m_LatestPointId;
+    this->m_LatestPointId++;
+    }
 
-    this->m_LatestPointId = this->m_PointsVector.size() - 1;
-    switch( this->m_PointInTriangleCounter )
-      {
-      case 0:
-        this->m_TrianglePointIds.p0 = this->m_LatestPointId;
-        break;
-      case 1:
-        this->m_TrianglePointIds.p1 = this->m_LatestPointId;
-        break;
-      case 2:
-        this->m_TrianglePointIds.p2 = this->m_LatestPointId;
-        break;
-      default:
-        itkExceptionMacro("Point counter went beyond value 2");
-      }
-    this->m_PointInTriangleCounter++;
+  switch( this->m_PointInTriangleCounter )
+    {
+    case 0:
+      this->m_TrianglePointIds.p0 = pointId;
+      break;
+    case 1:
+      this->m_TrianglePointIds.p1 = pointId;
+      break;
+    case 2:
+      this->m_TrianglePointIds.p2 = pointId;
+      break;
+    default:
+      itkExceptionMacro("Point counter went beyond value 2");
+    }
+
+  this->m_PointInTriangleCounter++;
+
+  if( this->m_PointInTriangleCounter == 3 )
+    {
+    this->m_PointInTriangleCounter = 0;
     }
 
 }

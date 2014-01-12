@@ -538,6 +538,10 @@ STLMeshIO
         {
         numberOfTriangles++;
         }
+      else
+        {
+        itkExceptionMacro("Found Non-Triangular Cell.");
+        }
 
       index2 += numberOfVerticesInCell;
 

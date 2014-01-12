@@ -18,6 +18,7 @@
 
 #include "itkSTLMeshIO.h"
 #include "itkMetaDataObject.h"
+#include "itkByteSwapper.h"
 
 #include <itksys/SystemTools.hxx>
 #include <fstream>
@@ -276,6 +277,12 @@ STLMeshIO
   //
   int32_t numberOfTriangles;
   this->m_InputStream.read(reinterpret_cast<char*>(&numberOfTriangles),sizeof(numberOfTriangles));
+
+  //
+  // Binary values in STL files are expected to be in little endian
+  // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+  //
+  ByteSwapper< int32_t >::SwapFromSystemToLittleEndian( &numberOfTriangles );
 
   this->SetNumberOfCells(numberOfTriangles);
 
@@ -612,6 +619,11 @@ void
 STLMeshIO
 ::WriteInt32AsBinary(int32_t value)
 {
+  //
+  // Binary values in STL files are expected to be in little endian
+  // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+  //
+  ByteSwapper< int32_t >::SwapFromSystemToLittleEndian( &value );
   this->m_OutputStream.write(reinterpret_cast<const char *>(&value), sizeof(value));
 }
 
@@ -620,6 +632,11 @@ void
 STLMeshIO
 ::WriteInt16AsBinary(int16_t value)
 {
+  //
+  // Binary values in STL files are expected to be in little endian
+  // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+  //
+  ByteSwapper< int16_t >::SwapFromSystemToLittleEndian( &value );
   this->m_OutputStream.write(reinterpret_cast<const char *>(&value), sizeof(value));
 }
 
@@ -630,7 +647,12 @@ STLMeshIO
 {
   for( unsigned int i = 0; i < 3; ++i )
     {
-    const float value = normal[i];
+    float value = normal[i];
+    //
+    // Binary values in STL files are expected to be in little endian
+    // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+    //
+    ByteSwapper< float >::SwapFromSystemToLittleEndian( &value );
     this->m_OutputStream.write(reinterpret_cast<const char *>(&value), sizeof(value));
     }
 }
@@ -642,7 +664,12 @@ STLMeshIO
 {
   for( unsigned int i = 0; i < 3; ++i )
     {
-    const float value = point[i];
+    float value = point[i];
+    //
+    // Binary values in STL files are expected to be in little endian
+    // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+    //
+    ByteSwapper< float >::SwapFromSystemToLittleEndian( &value );
     this->m_OutputStream.write(reinterpret_cast<const char *>(&value), sizeof(value));
     }
 }
@@ -656,6 +683,11 @@ STLMeshIO
   for( unsigned int i = 0; i < 3; ++i )
     {
     this->m_InputStream.read(reinterpret_cast<char *>(&value), sizeof(value));
+    //
+    // Binary values in STL files are expected to be in little endian
+    // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+    //
+    ByteSwapper< float >::SwapFromSystemToLittleEndian( &value );
     normal[i] = value;
     }
 }
@@ -666,6 +698,11 @@ STLMeshIO
 ::ReadInt32AsBinary(int32_t & value)
 {
   this->m_InputStream.read(reinterpret_cast<char *>(&value), sizeof(value));
+  //
+  // Binary values in STL files are expected to be in little endian
+  // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+  //
+  ByteSwapper< int32_t >::SwapFromSystemToLittleEndian( &value );
 }
 
 
@@ -674,6 +711,11 @@ STLMeshIO
 ::ReadInt16AsBinary(int16_t & value)
 {
   this->m_InputStream.read(reinterpret_cast<char *>(&value), sizeof(value));
+  //
+  // Binary values in STL files are expected to be in little endian
+  // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+  //
+  ByteSwapper< int16_t >::SwapFromSystemToLittleEndian( &value );
 }
 
 
@@ -685,6 +727,11 @@ STLMeshIO
   for( unsigned int i = 0; i < 3; ++i )
     {
     this->m_InputStream.read(reinterpret_cast<char *>(&value), sizeof(value));
+    //
+    // Binary values in STL files are expected to be in little endian
+    // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
+    //
+    ByteSwapper< float >::SwapFromSystemToLittleEndian( &value );
     point[i] = value;
     }
 

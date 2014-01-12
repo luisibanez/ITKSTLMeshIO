@@ -203,6 +203,10 @@ private:
   void ReadPointAsAscii(PointType & point);
   bool CheckStringFromAscii(const std::string & expected);
 
+  /** Helper function to write cells as ASCII or BINARY. */
+  virtual void WriteCellsAsAscii(void *buffer);
+  virtual void WriteCellsAsBinary(void *buffer);
+
   /** Functions to create set of points and disambiguate them. */
   void InsertPointIntoSet( const PointType & point );
 

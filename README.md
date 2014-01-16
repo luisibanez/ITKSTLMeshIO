@@ -1,5 +1,5 @@
-ITKSTLMeshIO
-============
+IOSTL
+=====
 
 This repository contains an ITK MeshIO class to read and write ITK meshes into STL files.
 

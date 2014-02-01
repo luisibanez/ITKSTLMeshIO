@@ -10,4 +10,5 @@ itk_module(IOSTL
     ITKQuadEdgeMesh
   DESCRIPTION
     "${DOCUMENTATION}"
+  EXCLUDE_FROM_DEFAULT
 )

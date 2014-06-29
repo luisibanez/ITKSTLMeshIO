@@ -25,10 +25,10 @@
 namespace itk
 {
 /** \class STLMeshIOFactory
-   * \brief Create instances of STLMeshIO objects using an object factory.
-   * \ingroup ITKIOMesh
-   * \ingroup IOSTL
-   */
+  * \brief Create instances of STLMeshIO objects using an object factory.
+  *
+  * \ingroup IOSTL
+  */
 class ITKIOMesh_EXPORT STLMeshIOFactory:public ObjectFactoryBase
 {
 public:

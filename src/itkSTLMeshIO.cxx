@@ -842,13 +842,17 @@ STLMeshIO
 
   PointsMapType::const_iterator pointMapItr = this->m_PointsMap.find( point );
 
-  IdentifierType pointId = pointMapItr->second;
+  IdentifierType pointId;
 
   if( pointMapItr == this->m_PointsMap.end() )
     {
     this->m_PointsMap[ point ] = this->m_LatestPointId;
     pointId = this->m_LatestPointId;
     this->m_LatestPointId++;
+    }
+  else
+    {
+    pointId = pointMapItr->second;
     }
 
   switch( this->m_PointInTriangleCounter )

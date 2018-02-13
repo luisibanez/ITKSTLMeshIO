@@ -33,14 +33,14 @@ int itkSTLMeshIOTest(int argc, char * argv[])
     }
 
   const unsigned int Dimension = 3;
-  typedef float PixelType;
+  using PixelType = float;
 
-  typedef itk::QuadEdgeMesh<PixelType, Dimension>    QEMeshType;
+  using QEMeshType = itk::QuadEdgeMesh<PixelType, Dimension>;
 
   itk::STLMeshIOFactory::RegisterOneFactory();
 
-  typedef itk::MeshFileReader< QEMeshType >     ReaderType;
-  typedef itk::MeshFileWriter< QEMeshType >     WriterType;
+  using ReaderType = itk::MeshFileReader< QEMeshType >;
+  using WriterType = itk::MeshFileWriter< QEMeshType >;
 
   ReaderType::Pointer reader = ReaderType::New();
   WriterType::Pointer writer = WriterType::New();

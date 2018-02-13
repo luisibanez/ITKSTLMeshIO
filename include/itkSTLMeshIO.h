@@ -38,11 +38,11 @@ namespace itk
 class IOSTL_EXPORT STLMeshIO : public MeshIOBase
 {
 public:
-  /** Standard "Self" typedef. */
-  typedef STLMeshIO                  Self;
-  typedef MeshIOBase                 Superclass;
-  typedef SmartPointer< Self >       Pointer;
-  typedef SmartPointer< const Self > ConstPointer;
+  /** Standard "Self" type alias. */
+  using Self = STLMeshIO;
+  using Superclass = MeshIOBase;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
@@ -175,13 +175,13 @@ private:
 
   std::string     m_InputLine;     // helper during reading
 
-  typedef float  PointValueType; // type to represent point coordinates
+  using PointValueType = float; // type to represent point coordinates
 
-  typedef Point< PointValueType, 3 >              PointType;
-  typedef Vector< PointValueType, 3 >             VectorType;
-  typedef CovariantVector< PointValueType, 3 >    NormalType;
+  using PointType = Point< PointValueType, 3 >;
+  using VectorType = Vector< PointValueType, 3 >;
+  using NormalType = CovariantVector< PointValueType, 3 >;
 
-  typedef std::vector< PointType >                PointContainerType;
+  using PointContainerType = std::vector< PointType >;
 
   /** Helper functions to write elements to binary file */
   void WriteInt32AsBinary(int32_t value);
@@ -235,7 +235,7 @@ private:
     }
   };
 
-  typedef std::map< PointType, IdentifierType, PointCompare >  PointsMapType;
+  using PointsMapType = std::map< PointType, IdentifierType, PointCompare >;
 
   PointsMapType         m_PointsMap;
 
@@ -254,7 +254,7 @@ private:
   TripletType             m_TrianglePointIds;
   unsigned int            m_PointInTriangleCounter;
 
-  typedef std::vector< TripletType >    CellsVectorType;
+  using CellsVectorType = std::vector< TripletType >;
   CellsVectorType                       m_CellsVector;
 
 };

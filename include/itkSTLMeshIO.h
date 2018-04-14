@@ -38,6 +38,8 @@ namespace itk
 class IOSTL_EXPORT STLMeshIO : public MeshIOBase
 {
 public:
+  ITK_DISALLOW_COPY_AND_ASSIGN(STLMeshIO);
+
   /** Standard "Self" type alias. */
   using Self = STLMeshIO;
   using Superclass = MeshIOBase;
@@ -168,8 +170,6 @@ protected:
 
 
 private:
-  ITK_DISALLOW_COPY_AND_ASSIGN(STLMeshIO);
-
   std::ofstream   m_OutputStream;  // output file
   std::ifstream   m_InputStream;   // input file
 

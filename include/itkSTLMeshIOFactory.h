@@ -33,6 +33,8 @@ namespace itk
 class IOSTL_EXPORT STLMeshIOFactory:public ObjectFactoryBase
 {
 public:
+  ITK_DISALLOW_COPY_AND_ASSIGN(STLMeshIOFactory);
+
   /** Standard class type alias. */
   using Self = STLMeshIOFactory;
   using Superclass = ObjectFactoryBase;
@@ -63,9 +65,6 @@ protected:
   ~STLMeshIOFactory() override;
 
   void PrintSelf(std::ostream & os, Indent indent) const override;
-
-private:
-  ITK_DISALLOW_COPY_AND_ASSIGN(STLMeshIOFactory);
 };
 } // end namespace itk
 

@@ -16,6 +16,7 @@
  *
  *=========================================================================*/
 
+#include "IOSTLExport.h"
 #include "itkSTLMeshIO.h"
 #include "itkSTLMeshIOFactory.h"
 #include "itkVersion.h"
@@ -43,7 +44,7 @@ STLMeshIOFactory
 
 const char *
 STLMeshIOFactory
-::GetITKSourceVersion(void) const
+::GetITKSourceVersion() const
 {
   return ITK_SOURCE_VERSION;
 }
@@ -53,5 +54,18 @@ STLMeshIOFactory
 ::GetDescription() const
 {
   return "STL MeshIO Factory, allows the loading of STL QuadEdgeMesh data into ITK";
+}
+
+// Undocumented API used to register during static initialization.
+// DO NOT CALL DIRECTLY.
+static bool STLMeshIOFactoryHasBeenRegistered;
+
+void IOSTL_EXPORT STLMeshIOFactoryRegister__Private()
+{
+  if( ! STLMeshIOFactoryHasBeenRegistered )
+    {
+    STLMeshIOFactoryHasBeenRegistered = true;
+    STLMeshIOFactory::RegisterOneFactory();
+    }
 }
 } // end namespace itk

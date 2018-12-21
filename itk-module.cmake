@@ -8,6 +8,8 @@ itk_module(IOSTL
   TEST_DEPENDS
     ITKTestKernel
     ITKQuadEdgeMesh
+  FACTORY_NAMES
+    MeshIO::STL
   DESCRIPTION
     "${DOCUMENTATION}"
   EXCLUDE_FROM_DEFAULT

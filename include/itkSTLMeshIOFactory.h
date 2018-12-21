@@ -42,9 +42,9 @@ public:
   using ConstPointer = SmartPointer< const Self >;
 
   /** Class methods used to interface with the registered factories. */
-  const char * GetITKSourceVersion(void) const override;
+  const char * GetITKSourceVersion() const override;
 
-  const char * GetDescription(void) const override;
+  const char * GetDescription() const override;
 
   /** Method for class instantiation. */
   itkFactorylessNewMacro(Self);
@@ -53,11 +53,11 @@ public:
   itkTypeMacro(STLMeshIOFactory, ObjectFactoryBase);
 
   /** Register one factory of this type  */
-  static void RegisterOneFactory(void)
+  static void RegisterOneFactory()
     {
-    STLMeshIOFactory::Pointer vtkFactory = STLMeshIOFactory::New();
+    STLMeshIOFactory::Pointer meshFactory = STLMeshIOFactory::New();
 
-    ObjectFactoryBase::RegisterFactory(vtkFactory);
+    ObjectFactoryBase::RegisterFactory(meshFactory);
     }
 
 protected:

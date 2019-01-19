@@ -12,13 +12,13 @@ except ImportError:
     sys.exit(1)
 
 setup(
-    name='itk-stlmeshio',
+    name='itk-iomeshstl',
     version='1.0.0',
     author='Luis Ibáñez',
     author_email='community@itk.org',
     packages=['itk'],
     package_dir={'itk': 'itk'},
-    download_url=r'https://github.com/InsightSoftwareConsortium/ITKSTLMeshIO',
+    download_url=r'https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL',
     description=r'MeshIO class to read and write ITK meshes into STL files.',
     long_description='itk-stlmeshio provides a class to read and write ITK '
                      'meshes into STL files.\n'
@@ -46,8 +46,8 @@ setup(
         ],
     license='Apache',
     keywords='ITK InsightToolkit STL Mesh',
-    url=r'https://github.com/InsightSoftwareConsortium/ITKSTLMeshIO',
+    url=r'https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL',
     install_requires=[
-        r'itk'
+        r'itk>4'
     ]
     )

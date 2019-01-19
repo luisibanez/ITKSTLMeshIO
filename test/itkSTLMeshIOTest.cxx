@@ -64,7 +64,6 @@ int itkSTLMeshIOTest(int argc, char * argv[])
 
   mesh->Print( std::cout );
 
-  
 
   writer->SetInput( reader->GetOutput() );
 

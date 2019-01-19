@@ -1,11 +1,11 @@
-ITKSTLMeshIO
+ITKIOMeshSTL
 ============
 
-.. |CircleCI| image:: https://circleci.com/gh/InsightSoftwareConsortium/ITKSTLMeshIO.svg?style=shield
-    :target: https://circleci.com/gh/InsightSoftwareConsortium/ITKSTLMeshIO
+.. |CircleCI| image:: https://circleci.com/gh/InsightSoftwareConsortium/ITKIOMeshSTL.svg?style=shield
+    :target: https://circleci.com/gh/InsightSoftwareConsortium/ITKIOMeshSTL
 
-.. |TravisCI| image:: https://travis-ci.org/InsightSoftwareConsortium/ITKSTLMeshIO.svg?branch=master
-    :target: https://travis-ci.org/InsightSoftwareConsortium/ITKSTLMeshIO
+.. |TravisCI| image:: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL.svg?branch=master
+    :target: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL
 
 .. |AppVeyor| image:: https://img.shields.io/appveyor/ci/itkrobot/itkstlmeshio.svg
     :target: https://ci.appveyor.com/project/itkrobot/itkstlmeshio

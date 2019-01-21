@@ -16,7 +16,7 @@
  *
  *=========================================================================*/
 
-#include "IOSTLExport.h"
+#include "IOMeshSTLExport.h"
 #include "itkSTLMeshIO.h"
 #include "itkSTLMeshIOFactory.h"
 #include "itkVersion.h"
@@ -60,7 +60,7 @@ STLMeshIOFactory
 // DO NOT CALL DIRECTLY.
 static bool STLMeshIOFactoryHasBeenRegistered;
 
-void IOSTL_EXPORT STLMeshIOFactoryRegister__Private()
+void IOMeshSTL_EXPORT STLMeshIOFactoryRegister__Private()
 {
   if( ! STLMeshIOFactoryHasBeenRegistered )
     {

@@ -7,8 +7,8 @@ ITKIOMeshSTL
 .. |TravisCI| image:: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL.svg?branch=master
     :target: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL
 
-.. |AppVeyor| image:: https://img.shields.io/appveyor/ci/itkrobot/itkstlmeshio.svg
-    :target: https://ci.appveyor.com/project/itkrobot/itkstlmeshio
+.. |AppVeyor| image:: https://img.shields.io/appveyor/ci/itkrobot/itkiomeshstl.svg
+    :target: https://ci.appveyor.com/project/itkrobot/itkiomeshstl
 
 =========== =========== ===========
    Linux      macOS       Windows

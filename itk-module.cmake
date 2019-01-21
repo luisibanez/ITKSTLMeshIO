@@ -3,13 +3,13 @@
 get_filename_component(MY_CURRENT_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 file(READ "${MY_CURRENT_DIR}/README.rst" DOCUMENTATION)
 
-# itk_module() defines the module dependencies in IOSTL
-# The testing module in IOSTL depends on ITKTestKernel
+# itk_module() defines the module dependencies in IOMeshSTL
+# The testing module in IOMeshSTL depends on ITKTestKernel
 # By convention those modules outside of ITK are not prefixed with
 # ITK.
 
 # define the dependencies of the include module and the tests
-itk_module(IOSTL
+itk_module(IOMeshSTL
   ENABLE_SHARED
   DEPENDS
     ITKCommon

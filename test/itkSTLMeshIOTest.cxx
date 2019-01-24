@@ -62,9 +62,6 @@ int itkSTLMeshIOTest(int argc, char * argv[])
   reader->Update();
   QEMeshType * mesh = reader->GetOutput();
 
-  mesh->Print( std::cout );
-
-
   writer->SetInput( reader->GetOutput() );
 
   int result = EXIT_SUCCESS;
@@ -84,7 +81,9 @@ int itkSTLMeshIOTest(int argc, char * argv[])
   //
   itk::STLMeshIO::Pointer meshIO = itk::STLMeshIO::New();
 
-  meshIO->Print( std::cout );
+  mesh->Print( std::cout );
+  reader->GetMeshIO()->Print( std::cout );
+  writer->GetMeshIO()->Print( std::cout );
 
   //
   //  Report the System Endianness

@@ -13,7 +13,7 @@ itk_module(IOMeshSTL
   ENABLE_SHARED
   DEPENDS
     ITKCommon
-    ITKIOMesh
+    ITKIOMeshBase
   TEST_DEPENDS
     ITKTestKernel
     ITKQuadEdgeMesh

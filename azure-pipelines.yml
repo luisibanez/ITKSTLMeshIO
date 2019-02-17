@@ -3,7 +3,10 @@ variables:
   CMakeBuildType: MinSizeRel
 
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+    - master
 
 jobs:
 

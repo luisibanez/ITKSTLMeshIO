@@ -1,21 +1,17 @@
 ITKIOMeshSTL
 ============
 
-.. |CircleCI| image:: https://circleci.com/gh/InsightSoftwareConsortium/ITKIOMeshSTL.svg?style=shield
-    :target: https://circleci.com/gh/InsightSoftwareConsortium/ITKIOMeshSTL
+.. image:: https://dev.azure.com/InsightSoftwareConsortium/ITKModules/_apis/build/status/InsightSoftwareConsortium.ITKIOMeshSTL?branchName=master
+    :target: https://dev.azure.com/InsightSoftwareConsortium/ITKModules/_build/latest?definitionId=2&branchName=master
+    :alt: Build status
 
-.. |TravisCI| image:: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL.svg?branch=master
-    :target: https://travis-ci.org/InsightSoftwareConsortium/ITKIOMeshSTL
+.. image:: https://img.shields.io/pypi/v/itk-iomeshstl.svg
+    :target: https://pypi.python.org/pypi/itk-iomeshstl
+    :alt: PyPI
 
-.. |AppVeyor| image:: https://img.shields.io/appveyor/ci/itkrobot/itkiomeshstl.svg
-    :target: https://ci.appveyor.com/project/itkrobot/itkiomeshstl
-
-=========== =========== ===========
-   Linux      macOS       Windows
-=========== =========== ===========
-|CircleCI|  |TravisCI|  |AppVeyor|
-=========== =========== ===========
-
+.. image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+    :target: https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL/blob/master/LICENSE)
+    :alt: License
 
 Overview
 --------
@@ -31,6 +27,26 @@ For more information, see the `Insight Journal article <http://hdl.handle.net/10
   http://hdl.handle.net/10380/3452
   http://www.insight-journal.org/browse/publication/913
 
+
+Installation
+------------
+
+To install the Python package::
+
+  python -m pip install itk-iomeshstl
+
+To build the C++ module, either enable the CMake option in ITK's
+build configuration::
+
+  Module_IOMeshSTL:BOOL=ON
+
+Or, build the module as a separate project against an ITK build tree::
+
+  git clone https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL
+  mkdir ITKIOMeshSTL-bulid
+  cd ITKIOMeshSTL-build
+  cmake -DITK_DIR=/path/to/ITK-build ../ITKIOMeshSTL
+  cmake --build .
 
 License
 -------

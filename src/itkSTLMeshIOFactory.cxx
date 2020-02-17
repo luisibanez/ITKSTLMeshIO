@@ -34,13 +34,13 @@ STLMeshIOFactory
   this->RegisterOverride( "itkMeshIOBase",
                          "itkSTLMeshIO",
                          "STL IO",
-                         1,
+                         true,
                          CreateObjectFunction< STLMeshIO >::New() );
 }
 
 STLMeshIOFactory
 ::~STLMeshIOFactory()
-{}
+= default;
 
 const char *
 STLMeshIOFactory

@@ -59,7 +59,7 @@ public:
   * \post Sets classes MeshIOBase::m_FileName variable to be FileNameToWrite
   * \return Returns true if this MeshIO can read the file specified.
   */
-  bool CanReadFile(const char *FileNameToRead) override;
+  bool CanReadFile(const char *fileName) override;
 
   /** Read the content of the file into a Mesh. */
   virtual void Read();
@@ -91,7 +91,7 @@ public:
    * \post Sets classes MeshIOBase::m_FileName variable to be FileNameToWrite
    * \return Returns true if this MeshIO can write the file specified.
    */
-  bool CanWriteFile(const char *FileNameToWrite) override;
+  bool CanWriteFile(const char *fileName) override;
 
   /** Write header of the STL file */
   void WriteMeshInformation() override;
@@ -133,7 +133,7 @@ public:
 
 protected:
   STLMeshIO();
-  ~STLMeshIO() override {}
+  ~STLMeshIO() override = default;
 
   void PrintSelf(std::ostream & os, Indent indent) const override;
 
@@ -200,7 +200,7 @@ private:
   void ReadPointAsBinary(PointType & point);
 
   /** Helper functions to read elements from ASCII files. */
-  void ReadStringFromAscii(const std::string & keyword);
+  void ReadStringFromAscii(const std::string & expected);
   void ReadPointAsAscii(PointType & point);
   bool CheckStringFromAscii(const std::string & expected);
 

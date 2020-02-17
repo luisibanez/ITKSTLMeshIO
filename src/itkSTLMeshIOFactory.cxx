@@ -34,7 +34,7 @@ STLMeshIOFactory
   this->RegisterOverride( "itkMeshIOBase",
                          "itkSTLMeshIO",
                          "STL IO",
-                         1,
+                         true,
                          CreateObjectFunction< STLMeshIO >::New() );
 }
 

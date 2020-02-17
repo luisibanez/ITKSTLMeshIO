@@ -40,7 +40,7 @@ STLMeshIOFactory
 
 STLMeshIOFactory
 ::~STLMeshIOFactory()
-{}
+= default;
 
 const char *
 STLMeshIOFactory

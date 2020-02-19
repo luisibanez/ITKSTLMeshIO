@@ -24,34 +24,24 @@
 namespace itk
 {
 void
-STLMeshIOFactory
-::PrintSelf(std::ostream &, Indent) const
+STLMeshIOFactory ::PrintSelf(std::ostream &, Indent) const
 {}
 
-STLMeshIOFactory
-::STLMeshIOFactory()
+STLMeshIOFactory ::STLMeshIOFactory()
 {
-  this->RegisterOverride( "itkMeshIOBase",
-                         "itkSTLMeshIO",
-                         "STL IO",
-                         true,
-                         CreateObjectFunction< STLMeshIO >::New() );
+  this->RegisterOverride("itkMeshIOBase", "itkSTLMeshIO", "STL IO", true, CreateObjectFunction<STLMeshIO>::New());
 }
 
-STLMeshIOFactory
-::~STLMeshIOFactory()
-= default;
+STLMeshIOFactory ::~STLMeshIOFactory() = default;
 
 const char *
-STLMeshIOFactory
-::GetITKSourceVersion() const
+STLMeshIOFactory ::GetITKSourceVersion() const
 {
   return ITK_SOURCE_VERSION;
 }
 
 const char *
-STLMeshIOFactory
-::GetDescription() const
+STLMeshIOFactory ::GetDescription() const
 {
   return "STL MeshIO Factory, allows the loading of STL QuadEdgeMesh data into ITK";
 }
@@ -60,12 +50,13 @@ STLMeshIOFactory
 // DO NOT CALL DIRECTLY.
 static bool STLMeshIOFactoryHasBeenRegistered;
 
-void IOMeshSTL_EXPORT STLMeshIOFactoryRegister__Private()
+void IOMeshSTL_EXPORT
+     STLMeshIOFactoryRegister__Private()
 {
-  if( ! STLMeshIOFactoryHasBeenRegistered )
-    {
+  if (!STLMeshIOFactoryHasBeenRegistered)
+  {
     STLMeshIOFactoryHasBeenRegistered = true;
     STLMeshIOFactory::RegisterOneFactory();
-    }
+  }
 }
 } // end namespace itk

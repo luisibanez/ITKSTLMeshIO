@@ -23,15 +23,16 @@
 #include "itkMeshFileWriter.h"
 #include "itkTestingMacros.h"
 
-int itkSTLMeshIOTest(int argc, char * argv[])
+int
+itkSTLMeshIOTest(int argc, char * argv[])
 {
-  if(argc < 4)
-    {
+  if (argc < 4)
+  {
     std::cerr << "Missing Arguments." << std::endl;
     std::cerr << "Usage: " << std::endl;
     std::cerr << "inputMesh outputMesh (0:ASCII/1:BINARY) " << std::endl;
     return EXIT_FAILURE;
-    }
+  }
 
   constexpr unsigned int Dimension = 3;
   using PixelType = float;
@@ -40,32 +41,32 @@ int itkSTLMeshIOTest(int argc, char * argv[])
 
   itk::STLMeshIOFactory::RegisterOneFactory();
 
-  using ReaderType = itk::MeshFileReader< QEMeshType >;
-  using WriterType = itk::MeshFileWriter< QEMeshType >;
+  using ReaderType = itk::MeshFileReader<QEMeshType>;
+  using WriterType = itk::MeshFileWriter<QEMeshType>;
 
   ReaderType::Pointer reader = ReaderType::New();
   WriterType::Pointer writer = WriterType::New();
 
-  reader->SetFileName( argv[1] );
-  writer->SetFileName( argv[2] );
+  reader->SetFileName(argv[1]);
+  writer->SetFileName(argv[2]);
 
-  int fileMode = atoi( argv[3] );
+  int fileMode = atoi(argv[3]);
 
-  if( fileMode == 0 )
-    {
+  if (fileMode == 0)
+  {
     writer->SetFileTypeAsASCII();
-    }
-  else if( fileMode == 1 )
-    {
+  }
+  else if (fileMode == 1)
+  {
     writer->SetFileTypeAsBINARY();
-    }
+  }
 
   reader->Update();
   QEMeshType * mesh = reader->GetOutput();
 
-  writer->SetInput( reader->GetOutput() );
+  writer->SetInput(reader->GetOutput());
 
-  ITK_TRY_EXPECT_NO_EXCEPTION( writer->Update() );
+  ITK_TRY_EXPECT_NO_EXCEPTION(writer->Update());
 
 
   //
@@ -73,24 +74,24 @@ int itkSTLMeshIOTest(int argc, char * argv[])
   //
   itk::STLMeshIO::Pointer meshIO = itk::STLMeshIO::New();
 
-  ITK_EXERCISE_BASIC_OBJECT_METHODS( meshIO, STLMeshIO, MeshIOBase );
+  ITK_EXERCISE_BASIC_OBJECT_METHODS(meshIO, STLMeshIO, MeshIOBase);
 
-  mesh->Print( std::cout );
-  reader->GetMeshIO()->Print( std::cout );
-  writer->GetMeshIO()->Print( std::cout );
+  mesh->Print(std::cout);
+  reader->GetMeshIO()->Print(std::cout);
+  writer->GetMeshIO()->Print(std::cout);
 
   //
   //  Report the System Endianness
   //
   std::cout << std::endl;
-  if( itk::ByteSwapper<int>::SystemIsLittleEndian() )
-    {
+  if (itk::ByteSwapper<int>::SystemIsLittleEndian())
+  {
     std::cout << "This system is Little Endian" << std::endl;
-    }
+  }
   else
-    {
+  {
     std::cout << "This system is Big Endian" << std::endl;
-    }
+  }
 
 
   std::cout << "Test finished." << std::endl;
